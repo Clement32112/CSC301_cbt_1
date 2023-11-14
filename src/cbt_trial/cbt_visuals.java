@@ -5,6 +5,7 @@
 package cbt_trial;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.Instant;
@@ -21,11 +22,9 @@ public class cbt_visuals extends javax.swing.JFrame {
 
     public class count_down_thread extends Thread {
 
-        int num = 0;
-
         JLabel label = timer;
         Duration current_time = Duration.ZERO;
-        boolean should_end = false;
+        boolean should_end = true;
 
         public count_down_thread(int hrs, int min, int sec) {
             current_time = Duration.ofSeconds(sec + 60 * min + 60 * 60 * hrs);
@@ -34,7 +33,7 @@ public class cbt_visuals extends javax.swing.JFrame {
 
         public void run() {
 
-            while (true) {
+            while (should_end) {
                 try {
                     if (current_time.isPositive() && !current_time.isZero()) {
                         current_time = current_time.minus(Duration.ofSeconds(1));
@@ -64,7 +63,35 @@ public class cbt_visuals extends javax.swing.JFrame {
         }
     }
 
+    public class blink_thread extends Thread {
+
+        public blink_thread() {
+        }
+
+        public void run() {
+            while (true) {
+
+                change_color(Color.red);
+                //change_color(Color.blue);
+                //change_color(Color.cyan);
+                //change_color(Color.orange);
+                change_color(Color.black);
+            }
+        }
+
+        void change_color(java.awt.Color color) {
+            try {
+                timer.setForeground(color);
+                sleep(Duration.ofMillis(500));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
+
+        }
+    }
     count_down_thread count_down;
+    blink_thread blinker;
+
     int current_question = 0;
     String[] questions = {
         "What is the first syntax printed to the console in every programming language?",
@@ -79,6 +106,17 @@ public class cbt_visuals extends javax.swing.JFrame {
     String[] correct_answer = {"Hello world!", "7", "49",};
     String[] user_answers = {"", "", "", ""};
     public javax.swing.JRadioButton[] options_btns;
+
+    public cbt_visuals() {
+        initComponents();
+        options_btns = new javax.swing.JRadioButton[]{option1, option2, option3, option4};
+        set_question(current_question);
+        count_down = new count_down_thread(0, 1, 0);
+        blinker = new blink_thread();
+        count_down.start();
+        blinker.start();
+
+    }
 
     private void set_options(int question_no) {
         option1.setText(options[question_no][0]);
@@ -112,15 +150,6 @@ public class cbt_visuals extends javax.swing.JFrame {
     /**
      * Creates new form cbt_visuals
      */
-    public cbt_visuals() {
-        initComponents();
-        options_btns = new javax.swing.JRadioButton[]{option1, option2, option3, option4};
-        set_question(current_question);
-        count_down = new count_down_thread(0, 1, 0);
-        count_down.start();
-
-    }
-
     void load_answer() {
         for (javax.swing.JRadioButton opt : options_btns) {
             if (user_answers[current_question] == opt.getText()) {
@@ -372,7 +401,7 @@ public class cbt_visuals extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println("Help");
         try {
-            Runtime.getRuntime().exec("code");
+            Runtime.getRuntime().exec("kcalc");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
