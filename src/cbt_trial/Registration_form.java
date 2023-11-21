@@ -522,7 +522,6 @@ public class Registration_form extends javax.swing.JFrame {
     }//GEN-LAST:event_Delete_btnActionPerformed
 
     private void search_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btnActionPerformed
-
         search();
     }//GEN-LAST:event_search_btnActionPerformed
 
