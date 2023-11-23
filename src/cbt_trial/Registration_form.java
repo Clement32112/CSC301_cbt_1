@@ -27,7 +27,7 @@ public class Registration_form extends javax.swing.JFrame {
 
     void add_entry() {
         try {
-            System.out.println("Starting database update");
+            System.out.println("Starting addition");
             String matno = Mat_no.getText();
             String first_name = Firstname_field.getText();
             String surname = Surname_field.getText();
@@ -45,7 +45,7 @@ public class Registration_form extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_register", "root", "password");
             PreparedStatement ps = con.prepareStatement("insert into students values(?,?,?,?,?,?,?)");
-            System.out.println("Starting update");
+            System.out.println("done Updateing");
             ps.setString(1, matno);
 
             ps.setString(2, surname);
@@ -91,6 +91,46 @@ public class Registration_form extends javax.swing.JFrame {
         Level_box1.setSelectedIndex(0);
         Mat_no1.setText("");
 
+    }
+
+    void update() {
+        try {
+            System.out.println("Update starting");
+            System.out.println("Starting database update");
+            String matno = Mat_no1.getText();
+            String first_name = Firstname_field1.getText();
+            String surname = Surname_field1.getText();
+            String othername = Othername_field1.getText();
+            String gender = "null";
+            if (Male_btn1.isSelected()) {
+                gender = "Male";
+            } else if (Female_btn1.isSelected()) {
+                gender = "Female";
+            }
+
+            String department = Department_box1.getSelectedItem().toString();
+            String level = Level_box1.getSelectedItem().toString();
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_register", "root", "password");
+            PreparedStatement ps = con.prepareStatement("update students set surname=?, firstname=?, othername=?, gender=?, department=?,level=? where matno = ?");
+            System.out.println("Starting update");
+
+            ps.setString(1, surname);
+            ps.setString(2, first_name);
+            ps.setString(3, othername);
+            ps.setString(4, gender);
+            ps.setString(5, department);
+            ps.setString(6, level);
+            ps.setString(7, matno);
+            int rs = ps.executeUpdate();
+
+            System.out.println("Execute Value " + String.valueOf(rs));
+
+            System.out.println("Update done");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
     }
 
     void search() {
@@ -180,7 +220,7 @@ public class Registration_form extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        insert_tab_1_btn1 = new javax.swing.JButton();
+        update_btn = new javax.swing.JButton();
         Delete_btn = new javax.swing.JButton();
         Surname_field1 = new javax.swing.JTextField();
         Firstname_field1 = new javax.swing.JTextField();
@@ -336,10 +376,10 @@ public class Registration_form extends javax.swing.JFrame {
 
         jLabel14.setText("Level");
 
-        insert_tab_1_btn1.setText("Update");
-        insert_tab_1_btn1.addActionListener(new java.awt.event.ActionListener() {
+        update_btn.setText("Update");
+        update_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insert_tab_1_btn1ActionPerformed(evt);
+                update_btnActionPerformed(evt);
             }
         });
 
@@ -382,7 +422,7 @@ public class Registration_form extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(insert_tab_1_btn1)
+                .addComponent(update_btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
                 .addComponent(Delete_btn)
                 .addGap(79, 79, 79))
@@ -457,7 +497,7 @@ public class Registration_form extends javax.swing.JFrame {
                     .addComponent(Level_box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(insert_tab_1_btn1)
+                    .addComponent(update_btn)
                     .addComponent(Delete_btn))
                 .addContainerGap())
         );
@@ -512,9 +552,9 @@ public class Registration_form extends javax.swing.JFrame {
         add_entry();
     }//GEN-LAST:event_insert_tab_1_btnActionPerformed
 
-    private void insert_tab_1_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insert_tab_1_btn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_insert_tab_1_btn1ActionPerformed
+    private void update_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_btnActionPerformed
+        update();        // TODO add your handling code here:
+    }//GEN-LAST:event_update_btnActionPerformed
 
     private void Delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_btnActionPerformed
         delete();
@@ -581,7 +621,6 @@ public class Registration_form extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clear_tab_1_btn;
     private javax.swing.JButton insert_tab_1_btn;
-    private javax.swing.JButton insert_tab_1_btn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -602,5 +641,6 @@ public class Registration_form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton search_btn;
+    private javax.swing.JButton update_btn;
     // End of variables declaration//GEN-END:variables
 }

@@ -317,7 +317,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="insert_tab_1_btn1" min="-2" max="-2" attributes="0"/>
+                          <Component id="update_btn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="135" max="32767" attributes="0"/>
                           <Component id="Delete_btn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
@@ -412,7 +412,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="insert_tab_1_btn1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="update_btn" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="Delete_btn" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -451,12 +451,12 @@
                     <Property name="text" type="java.lang.String" value="Level"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="insert_tab_1_btn1">
+                <Component class="javax.swing.JButton" name="update_btn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Update"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insert_tab_1_btn1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="update_btnActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="Delete_btn">
