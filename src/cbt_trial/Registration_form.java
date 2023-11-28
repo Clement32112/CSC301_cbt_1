@@ -183,6 +183,32 @@ public class Registration_form extends javax.swing.JFrame {
         }
     }
 
+    void create_user() {
+
+        String username = username_field_sec.getText();
+        String password = passwed_field_sec.getText();
+        String password_repeat = password_field_sec_repeat.getText();
+
+        if (!password.equals(password_repeat)) {
+            JOptionPane.showMessageDialog(rootPane, "Password does not match");
+            return;
+        }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_register", "root", "password");
+            PreparedStatement ps = con.prepareStatement("insert into login values(?,?)");
+            System.out.println("done Updateing");
+
+            ps.setString(1, username);
+            ps.setString(2, passwed_field_sec.getPassword().toString());
+            ps.executeUpdate();
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,7 +218,8 @@ public class Registration_form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        Registration_btngroup = new javax.swing.ButtonGroup();
+        SUD_btngroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -232,6 +259,15 @@ public class Registration_form extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         Mat_no1 = new javax.swing.JTextField();
         search_btn = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        password_field_sec_repeat = new javax.swing.JPasswordField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        passwed_field_sec = new javax.swing.JPasswordField();
+        username_field_sec = new javax.swing.JTextField();
+        create_user_btn = new javax.swing.JButton();
+        clear_btn_2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -268,9 +304,10 @@ public class Registration_form extends javax.swing.JFrame {
 
         Othername_field.setText("jTextField3");
 
-        buttonGroup1.add(Male_btn);
+        Registration_btngroup.add(Male_btn);
         Male_btn.setText("Male");
 
+        Registration_btngroup.add(Female_btn);
         Female_btn.setText("Female");
 
         Department_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Department", "Computer Science", "Data Science", "Electrical Engineering", "Mechnaical Engineering" }));
@@ -396,9 +433,10 @@ public class Registration_form extends javax.swing.JFrame {
 
         Othername_field1.setText("jTextField3");
 
-        buttonGroup1.add(Male_btn1);
+        SUD_btngroup.add(Male_btn1);
         Male_btn1.setText("Male");
 
+        SUD_btngroup.add(Female_btn1);
         Female_btn1.setText("Female");
 
         Department_box1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Department", "Computer Science", "Data Science", "Electrical Engineering", "Mechnaical Engineering" }));
@@ -504,6 +542,79 @@ public class Registration_form extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Select/Update/Delete", jPanel3);
 
+        jLabel16.setText("Username");
+
+        jLabel17.setText("Password");
+
+        jLabel18.setText("Repeat Password");
+
+        username_field_sec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                username_field_secActionPerformed(evt);
+            }
+        });
+
+        create_user_btn.setText("Create User");
+        create_user_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                create_user_btnActionPerformed(evt);
+            }
+        });
+
+        clear_btn_2.setText("Clear");
+        clear_btn_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clear_btn_2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(passwed_field_sec, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(username_field_sec)
+                    .addComponent(password_field_sec_repeat))
+                .addContainerGap(106, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(create_user_btn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(clear_btn_2)
+                .addGap(64, 64, 64))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(username_field_sec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(passwed_field_sec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(password_field_sec_repeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(create_user_btn)
+                    .addComponent(clear_btn_2))
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Security", jPanel4);
+
         jLabel1.setText("Registration");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -565,6 +676,23 @@ public class Registration_form extends javax.swing.JFrame {
         search();
     }//GEN-LAST:event_search_btnActionPerformed
 
+    private void username_field_secActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_field_secActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_username_field_secActionPerformed
+
+    private void clear_btn_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_btn_2ActionPerformed
+        username_field_sec.setText("");
+        passwed_field_sec.setText("");
+        password_field_sec_repeat.setText("");
+    }//GEN-LAST:event_clear_btn_2ActionPerformed
+
+    private void create_user_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_user_btnActionPerformed
+        // TODO add your handling code here:
+        create_user();
+        //int rs = ps.executeUpdate();
+
+    }//GEN-LAST:event_create_user_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -616,10 +744,13 @@ public class Registration_form extends javax.swing.JFrame {
     private javax.swing.JTextField Mat_no1;
     private javax.swing.JTextField Othername_field;
     private javax.swing.JTextField Othername_field1;
+    private javax.swing.ButtonGroup Registration_btngroup;
+    private javax.swing.ButtonGroup SUD_btngroup;
     private javax.swing.JTextField Surname_field;
     private javax.swing.JTextField Surname_field1;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton clear_btn_2;
     private javax.swing.JButton clear_tab_1_btn;
+    private javax.swing.JButton create_user_btn;
     private javax.swing.JButton insert_tab_1_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -628,6 +759,9 @@ public class Registration_form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -639,8 +773,12 @@ public class Registration_form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPasswordField passwed_field_sec;
+    private javax.swing.JPasswordField password_field_sec_repeat;
     private javax.swing.JButton search_btn;
     private javax.swing.JButton update_btn;
+    private javax.swing.JTextField username_field_sec;
     // End of variables declaration//GEN-END:variables
 }
